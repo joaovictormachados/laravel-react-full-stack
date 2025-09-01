@@ -1,11 +1,37 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet, Link} from 'react-router-dom'
+import { useStateContext } from '../contexts/StateContext'
 
 export default function DefaultLayout() {
+
+    const {user,token} = useStateContext() 
+
+    if (!token) {
+       return <Navigate to="/login" />
+    }
+    const onLogout = (ev) => {
+        ev.preventDefault()
+    } 
   return (
-    <div>
-        <h1>Default</h1>
-        <Outlet />
+    <div id="defaultLayout">
+        <aside>
+            <Link to='/dashboard'>Dashboard</Link>
+            <Link to='/users'>Users</Link>
+        </aside>
+        <div className="content">
+            <header>
+                <div>
+                    Header
+                </div>
+                <div>
+                    {user.name}
+                    <a href="#" onClick={onLogout} className="btn-logout"> Logout</a>
+                </div>
+            </header>
+            <main>
+                <Outlet />
+            </main>
+        </div>
     </div>
   )
 }

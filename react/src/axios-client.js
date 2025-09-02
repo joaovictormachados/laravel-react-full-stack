@@ -15,21 +15,15 @@ axiosClient.interceptors.request.use((config) => {
     return config
 });
 
-axiosClient.interceptors.response.use((response) => {
-    return response
-}, (error) => {
-    try {
-        
-    const {response} =error;
-    if (response.status ===401) {
-        localStorage.removeItem('ACCESS_TOKEN');
+axiosClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        const resp = error?.response;
+        if (resp && resp.status === 401) {
+            localStorage.removeItem('ACCESS_TOKEN');
+        }
+        return Promise.reject(error);
     }
-
-    } catch (e) {
-        console.error(e);
-
-    }
-    throw error;
-})
+)
 
 export default axiosClient;

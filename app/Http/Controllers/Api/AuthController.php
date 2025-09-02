@@ -45,8 +45,8 @@ class AuthController extends Controller
 
         /** @var User $user */
         $user = $request->user();
-        $user->currentAccessToken()->delete();
+        //$user->currentAccessToken()->delete();
 
-        return response(['message' => 'Successfully logged out'], 204);
+        return response(['message' => 'Successfully logged out'], status: 204);
     }
 }

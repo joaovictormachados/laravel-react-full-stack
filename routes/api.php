@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ping', fn () => response()->json(['pong' => true]));
 
 // rota pública de login
-Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
+Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
 
 // rota pública de signup
-Route::post('/signup', [\App\Http\Controllers\Api\AuthController::class, 'signup']);
+Route::post('/signup', [App\Http\Controllers\Api\AuthController::class, 'signup']);
 
 // rotas protegidas com Sanctum (Bearer token em Authorization)
 Route::middleware('auth:sanctum')->group(function () {
@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // logout invalida o token atual
-    Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+    Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
 });
